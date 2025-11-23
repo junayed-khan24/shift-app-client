@@ -108,7 +108,7 @@ const Review = () => {
         {/* Next Button */}
         <button
           onClick={nextSlide}
-          className="btn btn-circle absolute right-0 -mr-14 hidden md:flex"
+          className="btn btn-circle absolute bg-green-500 right-0 -mr-14 hidden md:flex"
         >
           <ChevronRight />
         </button>
