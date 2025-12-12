@@ -1,6 +1,7 @@
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 
 
@@ -16,6 +17,13 @@ const SocialLogin = () => {
         signinWithGoogle()
             .then(result => {
                 console.log(result.user)
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Google Login Succesfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
             .catch(error => {
                 console.log(error);

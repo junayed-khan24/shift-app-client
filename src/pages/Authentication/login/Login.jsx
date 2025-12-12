@@ -2,52 +2,84 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import SocialLogin from '../SocialLogin';
+import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { signIn } = useAuth();
 
   const onSubmit = data => {
-    console.log(data);
+    signIn(data.email, data.password)
+      .then(result => {
+        console.log("Logged In:", result.user);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your Login Succesfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   return (
-
-
-
-
-
-
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto mt-10">
       <div className="card-body">
+
         <h1 className="text-3xl text-center font-bold">Please Login!</h1>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="fieldset">
-            <label className="label">Email</label>
-            <input type="email" {...register('email')} className="input" placeholder="Email" />
 
+            <label className="label">Email</label>
+            <input
+              type="email"
+              {...register('email', { required: true })}
+              className="input"
+              placeholder="Email"
+            />
+            {errors.email && <p className='text-red-400'>Email is required</p>}
 
             <label className="label">Password</label>
-            <input type="password" {...register('password', {
-              required: true,
-              minLength: 6
-            }
-            )} className="input" placeholder="Password" />
+            <input
+              type="password"
+              {...register('password', {
+                required: true,
+                minLength: 6
+              })}
+              className="input"
+              placeholder="Password"
+            />
 
-            {
-              errors.password?.type === 'required' && <p className='text-red-400'>Password is required</p>
-            }
-            {
-              errors.password?.type === 'minLength' && <p className='text-red-400'>Passwrod Must be 6 Characters</p>
-            }
+            {errors.password?.type === 'required' && (
+              <p className='text-red-400'>Password is required</p>
+            )}
 
-            <div><a className="link link-hover">Forgot password?</a></div>
+            {errors.password?.type === 'minLength' && (
+              <p className='text-red-400'>Password must be at least 6 characters</p>
+            )}
 
+            <div>
+              <a className="link link-hover">Forgot password?</a>
+            </div>
 
-            <button type='submit' className=" btn btn-primary text-black  mt-4">Login</button>
+            <button type='submit' className="btn btn-primary mt-4">
+              Login
+            </button>
           </fieldset>
-          <p className='text-center'><small>Already have an account? <Link to="/register" className='btn btn-link'>Register</Link></small></p>
+
+          <p className='text-center mt-2'>
+            <small>
+              New here? <Link to="/register" className='btn btn-link'>Register</Link>
+            </small>
+          </p>
         </form>
-        <SocialLogin></SocialLogin>
+
+        <SocialLogin />
       </div>
     </div>
   );

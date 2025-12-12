@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router';
 import ProFastLogo from '../proFastLogo/ProFastLogo';
 import useAuth from '../../../hooks/useAuth';
 import { GoArrowUpRight } from 'react-icons/go';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
 
@@ -12,6 +13,13 @@ const Navbar = () => {
     logOut()
       .then(() => {
         console.log('signed out user')
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "LogOut Succesfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
       })
       .catch(error => {
         console.log(error)
@@ -22,7 +30,7 @@ const Navbar = () => {
 
   const navItems = <>
     <li><NavLink to="/">Home</NavLink></li>
-    <li><NavLink to="/about">About Us</NavLink></li>
+    <li><NavLink to="/">About Us</NavLink></li>
   </>
 
   return (
@@ -50,12 +58,12 @@ const Navbar = () => {
       <div className="navbar-end ">
         {
           user ? <button onClick={handleSignOut} className='btn'>Sign Out</button> :
-            <> 
+            <>
               <div className='flex gap-2'>
                 <Link to="/login" className='btn'>Login</Link>
-               <Link to="/register" className='btn bg-primary'>Register</Link>
+                <Link to="/register" className='btn bg-primary'>Register</Link>
               </div>
-               <GoArrowUpRight size={32} className='text-primary bg-black p-1 rounded-full'/>
+              <GoArrowUpRight size={32} className='text-primary bg-black p-1 rounded-full' />
             </>
         }
       </div>
