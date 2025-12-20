@@ -1,13 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin';
 import Swal from 'sweetalert2';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser } = useAuth();
+
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
@@ -21,6 +23,8 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+
+                navigate('/');
             })
             .catch(error => {
                 console.error(error);
