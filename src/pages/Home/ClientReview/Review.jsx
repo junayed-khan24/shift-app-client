@@ -83,7 +83,7 @@ const Review = () => {
   }, []);
 
   return (
-    <section className="py-20">
+    <section  data-aos="zoom-in-right" className="py-20 ">
       <div className="text-center mb-12 px-4">
         <h2 className="text-3xl font-bold text-gray-800">
           What our customers are saying
