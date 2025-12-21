@@ -1,11 +1,13 @@
 import { motion, useScroll } from "framer-motion";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
+import { useLoaderData } from "react-router";
 
 
 
 const Coverage = () => {
     const { scrollYProgress } = useScroll();
+    const warehouses = useLoaderData();
 
     return (
         <>
@@ -29,9 +31,9 @@ const Coverage = () => {
       <div className="max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg">
         <MapContainer
           center={[23.685, 90.3563]} // Bangladesh center
-          zoom={7}
+          zoom={8}
           scrollWheelZoom={false}
-          className="h-[400px] w-full"
+          className="h-[700px] w-full"
         >
           <TileLayer
             attribution='&copy; OpenStreetMap contributors'
@@ -39,11 +41,19 @@ const Coverage = () => {
           />
 
           {/* Example Marker */}
-          <Marker position={[23.8103, 90.4125]}>
-            <Popup>
-              Dhaka <br /> Parcel Delivery Available
-            </Popup>
-          </Marker>
+          {
+            warehouses.map((warehouse) => (
+              <Marker
+                key={warehouse.id}  
+                position={[warehouse.latitude, warehouse.longitude]}
+              >
+                <Popup>
+                    <strong>{warehouse.district}</strong> <br /> 
+                    {warehouse.covered_area.join(',')}
+                </Popup>
+              </Marker>
+            ))
+          }
 
         </MapContainer>
       </div>
