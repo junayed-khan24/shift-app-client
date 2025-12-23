@@ -102,7 +102,7 @@ const Coverage = () => {
             center={[23.685, 90.3563]}
             zoom={8}
             scrollWheelZoom={false}
-            className="h-[600px] w-full"
+            className="h-[500px] w-full"
           >
             {matchedWarehouse && <MapController target={matchedWarehouse} />}
 
