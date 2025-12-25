@@ -3,12 +3,15 @@ import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const { user } = useAuth();
-  const { register, handleSubmit, watch, reset } = useForm();
+  const axiosSecure = useAxiosSecure();
 
   const warehouses = useLoaderData();
+  const { register, handleSubmit, watch, reset } = useForm();
+
 
   const parcelType = watch("type");
   const senderRegion = watch("senderRegion");
@@ -101,13 +104,20 @@ const SendParcel = () => {
 
         console.log("FINAL PARCEL DATA:", parcelPayload);
 
-        Swal.fire({
-          icon: "success",
-          title: "Parcel Created!",
-          text: "Proceeding to payment...",
-          timer: 2000,
-          showConfirmButton: false,
-        });
+        // Send to server
+        axiosSecure.post('/parcels', parcelPayload)
+         .then(res => {
+            console.log("Parcel created:", res.data);
+         })
+
+
+        // Swal.fire({
+        //   icon: "success",
+        //   title: "Parcel Created!",
+        //   text: "Proceeding to payment...",
+        //   timer: 2000,
+        //   showConfirmButton: false,
+        // });
 
         reset();
       }
