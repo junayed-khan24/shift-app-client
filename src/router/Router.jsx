@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import RootLayout from "../layout/RootLayout";
 import AuthLayout from "../layout/AuthLayout";
@@ -7,8 +7,8 @@ import Register from "../pages/Authentication/Register/Register";
 import Coverage from "../pages/Coverage/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
 import SendParcel from "../pages/SendParcel/SendParcel";
-import DashboardLayout from "../layout/DashboardLayout";
 import MyParcels from "../pages/DashBoard/MyParcels/MyParcels";
+import DashboardLayout from "../layout/DashboardLayout";
 
 const router = createBrowserRouter ([
     {
@@ -51,8 +51,8 @@ const router = createBrowserRouter ([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
-                path: 'myParcels',
-                Component: MyParcels,
+                path: 'my-parcels',
+                Component: MyParcels
             }
         ]
     }
