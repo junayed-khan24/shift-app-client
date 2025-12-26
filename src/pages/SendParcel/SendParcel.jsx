@@ -108,16 +108,21 @@ const SendParcel = () => {
         axiosSecure.post('/parcels', parcelPayload)
          .then(res => {
             console.log("Parcel created:", res.data);
+            if (res.data.insertedId) {
+              // Redirect to payment page or show payment modal
+              Swal.fire({
+                icon: "success",
+                title: "Parcel Created!",
+                text: "Proceeding to payment...",
+                timer: 2000,
+                showConfirmButton: false,
+              });
+            }
          })
+         
 
 
-        // Swal.fire({
-        //   icon: "success",
-        //   title: "Parcel Created!",
-        //   text: "Proceeding to payment...",
-        //   timer: 2000,
-        //   showConfirmButton: false,
-        // });
+        
 
         reset();
       }
