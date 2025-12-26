@@ -1,6 +1,8 @@
 import React from 'react';
 import Footer from '../pages/shared/footer/Footer';
 import { Outlet } from 'react-router-dom';
+import ProFastLogo from '../pages/shared/proFastLogo/ProFastLogo';
+import { NavLink } from 'react-router';
 
 const DashboardLayout = () => {
     return (
@@ -39,8 +41,9 @@ const DashboardLayout = () => {
     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
     <ul className="menu bg-base-200 min-h-full w-80 p-4">
       {/* Sidebar content here */}
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
+      <ProFastLogo></ProFastLogo>
+      <li><NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/dashboard/my-parcels">My Parcels</NavLink></li>
     </ul>
   </div>
 </div>
