@@ -11,7 +11,7 @@ const Login = () => {
 
    const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state || '/';
+  const from = location.state || '/'; 
 
 
   const onSubmit = data => {

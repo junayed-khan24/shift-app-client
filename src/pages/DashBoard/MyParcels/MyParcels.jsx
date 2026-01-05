@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -107,9 +108,11 @@ const MyParcels = () => {
                   </button>
 
                   {parcel.status !== "Paid" && (
-                    <button className="btn btn-xs btn-success">
-                      Pay
-                    </button>
+                   <Link to={`/dashboard/payment-${parcel._id}`}>
+                     <button className="btn btn-xs btn-success">
+                       Pay
+                     </button>
+                   </Link>
                   )}
 
                   <button
