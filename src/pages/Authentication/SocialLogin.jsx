@@ -43,7 +43,7 @@ const SocialLogin = () => {
             <div className='text-center flex items-center text-1xl font-bold btn mt-2'
                 onClick={handleGoogleSignIn}
             >
-                <FcGoogle size={24} />
+                <FcGoogle size={22} />
                 Login With Google
             </div>
         </div>
