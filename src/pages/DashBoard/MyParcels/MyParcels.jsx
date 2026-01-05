@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -37,12 +37,8 @@ const MyParcels = () => {
         const res = await axiosSecure.delete(`/parcels/${id}`);
 
         if (res.data.deletedCount > 0) {
-          Swal.fire(
-            "Deleted!",
-            "Parcel has been deleted.",
-            "success"
-          );
-          refetch(); // 🔄 refresh table
+          Swal.fire("Deleted!", "Parcel has been deleted.", "success");
+          refetch();
         }
       }
     });
@@ -76,12 +72,12 @@ const MyParcels = () => {
               <tr key={parcel._id}>
                 <td>{index + 1}</td>
 
-                <td className="capitalize">
-                  {parcel.type}
-                </td>
+                <td className="capitalize">{parcel.type}</td>
 
                 <td>
-                  {new Date(parcel.createdAt).toLocaleDateString()}
+                  {parcel.createdAt
+                    ? new Date(parcel.createdAt).toLocaleDateString()
+                    : "N/A"}
                 </td>
 
                 <td>৳ {parcel.cost}</td>
@@ -90,13 +86,12 @@ const MyParcels = () => {
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium
                       ${
-                        parcel.status === "Paid"
+                        parcel.paymentStatus === "paid"
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-700"
-                      }
-                    `}
+                      }`}
                   >
-                    {parcel.status === "Paid"
+                    {parcel.paymentStatus === "paid"
                       ? "Paid"
                       : "Unpaid"}
                   </span>
@@ -107,12 +102,13 @@ const MyParcels = () => {
                     View
                   </button>
 
-                  {parcel.status !== "Paid" && (
-                   <Link to={`/dashboard/payment-${parcel._id}`}>
-                     <button className="btn btn-xs btn-success">
-                       Pay
-                     </button>
-                   </Link>
+                  {parcel.paymentStatus !== "paid" && (
+                    <Link
+                      to={`/dashboard/payment/${parcel._id}`}
+                      className="btn btn-xs btn-success"
+                    >
+                      Pay
+                    </Link>
                   )}
 
                   <button
