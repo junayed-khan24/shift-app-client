@@ -74,7 +74,7 @@ const Login = () => {
               <a className="link link-hover">Forgot password?</a>
             </div>
 
-            <button type='submit' className="btn btn-primary mt-4">
+            <button type='submit' className="btn btn-primary mt-4 text-black">
               Login
             </button>
           </fieldset>

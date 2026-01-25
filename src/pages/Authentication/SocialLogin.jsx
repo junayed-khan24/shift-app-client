@@ -40,7 +40,7 @@ const SocialLogin = () => {
     return (
         <div className='text-center'>
             <p>or</p>
-            <div className='text-center flex items-center text-1xl font-bold btn mt-3 border-0 bg-white hover:bg-gray-200 w-full mx-auto'
+            <div className='text-center flex items-center text-1xl font-bold btn mt-3 bg-gray-200 w-full mx-auto'
                 onClick={handleGoogleSignIn}
             >
                 <FcGoogle size={22} />
